@@ -11,7 +11,7 @@ namespace file_handler
     {
         public FolderBrowserDialog fbd_1;
 
-        private string folder_name { get;  set; }
+        private string Folder_Name { get;  set; }
 
         //Constructor for my file handle class
         public File_Handler()
@@ -29,8 +29,8 @@ namespace file_handler
             if(result == DialogResult.OK)
             {
                 //Set the foldername string
-                folder_name = fbd_1.SelectedPath;
-                System.Diagnostics.Debug.WriteLine("The folder path is: " + folder_name);
+                Folder_Name = fbd_1.SelectedPath;
+                System.Diagnostics.Debug.WriteLine("The folder path is: " + Folder_Name);
 
             }
             else if(result == DialogResult.Cancel)
@@ -42,7 +42,7 @@ namespace file_handler
 
         public string Get_Folder_Name()
         {
-               string tmp_String = folder_name;
+               string tmp_String = Folder_Name;
                return tmp_String;
         }
 
