@@ -11,7 +11,7 @@ namespace file_handler
     {
         public FolderBrowserDialog fbd_1;
 
-        private string folder_name;
+        private string folder_name { get;  set; }
 
         //Constructor for my file handle class
         public File_Handler()
@@ -19,10 +19,9 @@ namespace file_handler
             //Create memory for our SFL path browser object
             fbd_1 = new FolderBrowserDialog();
 
-
         }
 
-        public void Open_SFL_LOC_Dialog()
+        public void Open_Folder_Dialog()
         {
             
             DialogResult result = fbd_1.ShowDialog();
@@ -39,6 +38,12 @@ namespace file_handler
                 return;
             }
 
+        }
+
+        public string Get_Folder_Name()
+        {
+               string tmp_String = folder_name;
+               return tmp_String;
         }
 
     }
