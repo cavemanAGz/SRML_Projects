@@ -8,23 +8,55 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SFL_2_CSV.Properties
-{
-
-
-     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-     {
-
-          private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-          public static Settings Default
-          {
-               get
-               {
-                    return defaultInstance;
-               }
-          }
-     }
+namespace SFL_2_CSV.Properties {
+    
+    
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\")]
+        public string default_sfl_path {
+            get {
+                return ((string)(this["default_sfl_path"]));
+            }
+            set {
+                this["default_sfl_path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\")]
+        public string default_sfl_arch_path {
+            get {
+                return ((string)(this["default_sfl_arch_path"]));
+            }
+            set {
+                this["default_sfl_arch_path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\")]
+        public string default_csv_out_path {
+            get {
+                return ((string)(this["default_csv_out_path"]));
+            }
+            set {
+                this["default_csv_out_path"] = value;
+            }
+        }
+    }
 }
