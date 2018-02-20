@@ -176,6 +176,7 @@
                this.Frm_Btn_Convert_files.TabIndex = 1;
                this.Frm_Btn_Convert_files.Text = "SFL --> CSV";
                this.Frm_Btn_Convert_files.UseVisualStyleBackColor = true;
+               this.Frm_Btn_Convert_files.Click += new System.EventHandler(this.Frm_Btn_Convert_files_Click);
                // 
                // Frm_Btn_Qut_App
                // 

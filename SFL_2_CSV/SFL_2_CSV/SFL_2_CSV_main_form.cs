@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//THis is fo rthe directory.get method
+using System.IO;
+
 using file_handler;
 
 namespace SFL_2_CSV
@@ -27,6 +30,10 @@ namespace SFL_2_CSV
         string sfl_arch_loc_fldr_path_str = null;
         //Hold the text string of the SFL file's location for displaying to users
         string csv_loc_fldr_path_str = null;
+
+        //String array to hold names of files in the directory for parsing
+        string[] sfl_list;
+        string[] all_file_list;
 
         public SFL_2_CSV_main_form()
         {
@@ -105,6 +112,21 @@ namespace SFL_2_CSV
           private void Frm_Btn_Qut_App_Click(object sender, EventArgs e)
           {
                Application.Exit();
+          }
+
+          private void Frm_Btn_Convert_files_Click(object sender, EventArgs e)
+          {
+               sfl_list = Directory.GetFiles(sfl_loc_fldr_path_str, "*.sfl");
+               foreach(string name in sfl_list)
+               {
+                    Console.WriteLine("SFL File: " + name);
+               }
+
+               all_file_list = Directory.GetFiles(sfl_loc_fldr_path_str);
+               foreach (string name in all_file_list)
+               {
+                    Console.WriteLine("All Files: " + name);
+               }
           }
      }
 }
