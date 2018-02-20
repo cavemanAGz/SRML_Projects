@@ -88,12 +88,23 @@ namespace SFL_2_CSV
 
         private void Frm_Btn_CSV_Out_Loc_Browse_Click(object sender, EventArgs e)
         {
+            csv_loc_fh.fbd_1.SelectedPath = Properties.Settings.Default.default_csv_out_path;
             //Open the folder browser window to set CSV output folder
             csv_loc_fh.Open_Folder_Dialog();
             //Set the text for the CSV output path to local var
             csv_loc_fldr_path_str = csv_loc_fh.Get_Folder_Name();
             //Set the textbox value for the CSV output path
             Frm_TxtBx_CSV_Out_Path.Text = csv_loc_fldr_path_str;
-        }
-    }
+
+            //Lets set the default path for next load by using the User settings attribute
+            Properties.Settings.Default.default_csv_out_path = csv_loc_fldr_path_str;
+            //Save the changes to the properties **** Move this to the SFL->CSV
+            Properties.Settings.Default.Save();
+          }
+
+          private void Frm_Btn_Qut_App_Click(object sender, EventArgs e)
+          {
+               Application.Exit();
+          }
+     }
 }
