@@ -46,16 +46,33 @@ namespace SFL_2_CSV
             //Create a file hanfdler object for the location to stor the new CSV file
             csv_loc_fh = new File_Handler();
 
+            /****************** SFL file location section setup ****************************/
+            //Set the default text for the label
             Frm_TxtBx_SFL_Path.Text = Properties.Settings.Default.default_sfl_path;
-            Frm_TxtBx_SFL_Arch_Path.Text = Properties.Settings.Default.default_sfl_arch_path;
-            Frm_TxtBx_CSV_Out_Path.Text = Properties.Settings.Default.default_csv_out_path;
-
-        }
-
-        private void Frm_Btn_SFL_Loc_Browse_Click(object sender, EventArgs e)
-        {
+            //Ensure that the folder path string holds the default folder location
+            sfl_loc_fldr_path_str = Properties.Settings.Default.default_sfl_path;
             //Set the deeafault path for the folder browser
             sfl_loc_fh.fbd_1.SelectedPath = Properties.Settings.Default.default_sfl_path;
+
+            /****************** SFL file archive location section setup ****************************/
+            //Set the default text for the label
+            Frm_TxtBx_SFL_Arch_Path.Text = Properties.Settings.Default.default_sfl_arch_path;
+            //Set the default folder path from from settings file
+            sfl_arch_loc_fh.fbd_1.SelectedPath = Properties.Settings.Default.default_sfl_arch_path;
+            //Ensure that the folder path string holds the default folder location
+            sfl_arch_loc_fldr_path_str = Properties.Settings.Default.default_sfl_arch_path;
+
+            /****************** CSV output location section setup ****************************/
+            //Set the default text for the label
+            Frm_TxtBx_CSV_Out_Path.Text = Properties.Settings.Default.default_csv_out_path;
+            //Set the default folder path from from settings file
+            csv_loc_fh.fbd_1.SelectedPath = Properties.Settings.Default.default_csv_out_path;
+            //Ensure that the folder path string holds the default folder location
+            csv_loc_fldr_path_str = Properties.Settings.Default.default_csv_out_path;
+          }
+
+          private void Frm_Btn_SFL_Loc_Browse_Click(object sender, EventArgs e)
+        {
             //Open the folder browser window for SFL location
             sfl_loc_fh.Open_Folder_Dialog();
 
@@ -74,13 +91,10 @@ namespace SFL_2_CSV
 
         private void Frm_Btn_SFL_Arch_Loc_Browse_Click(object sender, EventArgs e)
         {
-            //Set the default folder path from from settings file
-            sfl_arch_loc_fh.fbd_1.SelectedPath = Properties.Settings.Default.default_sfl_arch_path;
-            //Open the folder browser window for SFL archive location
+            //Open the folder browser window for CSV output location
             sfl_arch_loc_fh.Open_Folder_Dialog();
 
             //Do some checks to ensure everything went well here
-
 
             //Set the text for the SFL archive path to local var
             sfl_arch_loc_fldr_path_str = sfl_arch_loc_fh.Get_Folder_Name();
@@ -95,9 +109,10 @@ namespace SFL_2_CSV
 
         private void Frm_Btn_CSV_Out_Loc_Browse_Click(object sender, EventArgs e)
         {
-            csv_loc_fh.fbd_1.SelectedPath = Properties.Settings.Default.default_csv_out_path;
-            //Open the folder browser window to set CSV output folder
             csv_loc_fh.Open_Folder_Dialog();
+
+            //Do some checks to ensure everything went well here
+
             //Set the text for the CSV output path to local var
             csv_loc_fldr_path_str = csv_loc_fh.Get_Folder_Name();
             //Set the textbox value for the CSV output path
