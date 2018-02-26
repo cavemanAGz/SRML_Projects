@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.IO;
 
 using file_handler;
+using sfl_parser;
 
 namespace SFL_2_CSV
 {
@@ -33,8 +34,15 @@ namespace SFL_2_CSV
 
         //String array to hold names of files in the directory for parsing
         string[] sfl_list;
-        string[] all_file_list;
+        //string[] all_file_list;
+        List<string> raw_file_string;
 
+        //Add a parser object to handle file parsing duties
+        /*** Gotta think about how to handle this one, maybe use this in the file handler class ***/
+        SFL_Parser parser = null;
+
+
+        //This is the FOrm constructor 
         public SFL_2_CSV_main_form()
         {
             InitializeComponent();
@@ -45,6 +53,8 @@ namespace SFL_2_CSV
             sfl_arch_loc_fh = new File_Handler();
             //Create a file hanfdler object for the location to stor the new CSV file
             csv_loc_fh = new File_Handler();
+
+            
 
             /****************** SFL file location section setup ****************************/
             //Set the default text for the label
@@ -68,10 +78,10 @@ namespace SFL_2_CSV
             //Set the default folder path from from settings file
             csv_loc_fh.fbd_1.SelectedPath = Properties.Settings.Default.default_csv_out_path;
             //Ensure that the folder path string holds the default folder location
-            csv_loc_fldr_path_str = Properties.Settings.Default.default_csv_out_path;
-          }
+           csv_loc_fldr_path_str = Properties.Settings.Default.default_csv_out_path;
+        }
 
-          private void Frm_Btn_SFL_Loc_Browse_Click(object sender, EventArgs e)
+        private void Frm_Btn_SFL_Loc_Browse_Click(object sender, EventArgs e)
         {
             //Open the folder browser window for SFL location
             sfl_loc_fh.Open_Folder_Dialog();
@@ -124,23 +134,46 @@ namespace SFL_2_CSV
             Properties.Settings.Default.Save();
           }
 
-          private void Frm_Btn_Qut_App_Click(object sender, EventArgs e)
+        private void Frm_Btn_Qut_App_Click(object sender, EventArgs e)
           {
                Application.Exit();
           }
 
-          private void Frm_Btn_Convert_files_Click(object sender, EventArgs e)
+        private void Frm_Btn_Convert_files_Click(object sender, EventArgs e)
           {
                sfl_list = Directory.GetFiles(sfl_loc_fldr_path_str, "*.sfl");
                foreach(string name in sfl_list)
                {
                     Console.WriteLine("SFL File: " + name);
+                    string tmp_str;
+                    try
+                    {
+                         //the file string will begine with name, then the contents of the file
+                         tmp_str = @name + @"," + @File.ReadAllText(name);
+
+                         //Check if the list is initialized
+                         if (raw_file_string == null)
+                         {
+                              //List needs to be initialized
+                              raw_file_string = new List<string> { tmp_str };
+                         }
+                         else
+                         {
+                              //Else just add the next file string
+                              raw_file_string.Add(tmp_str);
+                         }                         
+                         
+                    }
+                    catch(Exception ex)
+                    {
+                         Console.WriteLine("The file could not be read:");
+                         Console.WriteLine(ex.Message);
+                    }                    
                }
 
-               all_file_list = Directory.GetFiles(sfl_loc_fldr_path_str);
-               foreach (string name in all_file_list)
+               foreach(string sfl in raw_file_string )
                {
-                    Console.WriteLine("All Files: " + name);
+                    Console.WriteLine(sfl);
                }
           }
      }
