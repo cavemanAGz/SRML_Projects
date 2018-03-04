@@ -44,5 +44,11 @@
     <Compile Include="file_handler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sfl_parser\sfl_parser.csproj">
+      <Project>{225f18c9-4d99-41bb-958e-f60eb51e10c3}</Project>
+      <Name>sfl_parser</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -39,11 +39,10 @@ namespace SFL_2_CSV
 
         //Add a parser object to handle file parsing duties
         /*** Gotta think about how to handle this one, maybe use this in the file handler class ***/
-        SFL_Parser parser = null;
+        SFL_Parser parser = new SFL_Parser();
 
-
-        //This is the FOrm constructor 
-        public SFL_2_CSV_main_form()
+          //This is the FOrm constructor 
+          public SFL_2_CSV_main_form()
         {
             InitializeComponent();
             //Creat memory for the SFL location file handler
@@ -144,11 +143,12 @@ namespace SFL_2_CSV
                sfl_list = Directory.GetFiles(sfl_loc_fldr_path_str, "*.sfl");
                foreach(string name in sfl_list)
                {
-                    Console.WriteLine("SFL File: " + name);
+                    //Console.WriteLine("SFL File Name: " + name);
                     string tmp_str;
+                    string return_str;
                     try
                     {
-                         //the file string will begine with name, then the contents of the file
+                         //the file string will begin with name, then the contents of the file
                          tmp_str = @name + @"," + @File.ReadAllText(name);
 
                          //Check if the list is initialized
@@ -156,11 +156,16 @@ namespace SFL_2_CSV
                          {
                               //List needs to be initialized
                               raw_file_string = new List<string> { tmp_str };
+                              return_str = parser.Parse_SFL(tmp_str);
+                              tmp_str = null;
+                              Console.WriteLine("Parser returned: " + return_str);
                          }
                          else
                          {
                               //Else just add the next file string
                               raw_file_string.Add(tmp_str);
+                              return_str = parser.Parse_SFL(tmp_str);
+                              Console.WriteLine("Parser returned: " + return_str);
                          }                         
                          
                     }
@@ -173,7 +178,7 @@ namespace SFL_2_CSV
 
                foreach(string sfl in raw_file_string )
                {
-                    Console.WriteLine(sfl);
+                    //Console.WriteLine(sfl);
                }
           }
      }
