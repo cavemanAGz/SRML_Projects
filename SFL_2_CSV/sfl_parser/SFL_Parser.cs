@@ -8,8 +8,7 @@ namespace sfl_parser
 {
      public class SFL_Parser
      {
-          //This array holds all of the possible port counts for an instrument.
-          private static readonly int[] ports_possible = { 4, 8, 16, 24, 32, 48, 64 };
+
           //The following constants are based on the orignal program file SFMOD. 
           //The header is the firs 50 chars, with informational values
           //(Change this if the header length changes. Count is charachters)
@@ -18,6 +17,19 @@ namespace sfl_parser
           //is not and will be dertermined at run time. (Change this if the data length changes. Count is charachters)
           private static readonly int data_length = 42;
 
+          //This array holds all possible record sizes folowing this formula:
+          // Report_Length = (Header_Lenght + (Data_Lenght * Port_Count))
+          private static readonly int[] Record_Lengths = {
+               (header_length + (data_length * 4)),
+               (header_length + (data_length * 8)),
+               (header_length + (data_length * 16)),
+               (header_length + (data_length * 24)),
+               (header_length + (data_length * 32)),
+               (header_length + (data_length * 48)),
+               (header_length + (data_length * 64)) };
+
+          //This is just to do the translation of Record lentght ot port count
+          private int[] Port_Values = { 4, 8, 16, 24, 32, 48, 64};
           /************************Start File props**********************************************************/
 
           //complete copy of the sfl file without the filename and path attached, 
@@ -54,6 +66,8 @@ namespace sfl_parser
           {
                //Call method to set file information. 
                Get_File_Info(sfl_file_string);
+
+               Determine_Record_Prams();
 
                return SFL_file_path + SFL_file_name;
           }
@@ -98,18 +112,35 @@ namespace sfl_parser
                //File_Length (+/- 2) =record_length * record_count
                File_Length = SFL_to_parse.Length;
 
-               for(int i = 0; i < ports_possible.Length; i++)
+               int Mod_Result = 5000;
+
+               for (int i = 0; i < Record_Lengths.Length; i++)
                {
-                    if( (File_Length % ports_possible[i]) == 0)
+                    Mod_Result = File_Length % Record_Lengths[i];
+                    if (Mod_Result == 0)
                     {
-                         Port_Count = ports_possible[i];
+                         Port_Count = Port_Values[i];
+                         Record_Length = Record_Lengths[i];
+                         Console.WriteLine("The port Count is: " + Port_Count.ToString());
+                         Console.WriteLine("The Record length is: " + Record_Length.ToString());
                          break;
                     }
-                    else if ((File_Length % ports_possible[i]) == 2)
+                    else if(Mod_Result == 2)
                     {
-                         Port_Count = ports_possible[i];
-                         //print error to log, the file has an extra 2 chars
-                         Console.WriteLine("ERROR onf SFL FILE, COrection made, possible bad port count!");
+                         Port_Count = Port_Values[i];
+                         Record_Length = Record_Lengths[i];
+                         Console.WriteLine("The port Count is: " + Port_Count.ToString());
+                         Console.WriteLine("The Record length is: " + Record_Length.ToString());
+                         Console.WriteLine("Error! Slight Correction made, data might be bad!");
+                         break;
+                    }
+
+                    if(i == Record_Lengths.Length - 1)
+                    {
+                         Port_Count = 16;
+                         Console.WriteLine("The port Count is: " + Port_Count.ToString());
+                         Console.WriteLine("Error! Couldnt determin port count, revert to pre 3/3/2018 default of 16 ports");
+                         break;
                     }
                }
           }
