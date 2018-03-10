@@ -145,7 +145,7 @@ namespace SFL_2_CSV
                {
                     //Console.WriteLine("SFL File Name: " + name);
                     string tmp_str;
-                    string return_str;
+                    //string return_str;
                     try
                     {
                          //the file string will begin with name, then the contents of the file
@@ -156,16 +156,18 @@ namespace SFL_2_CSV
                          {
                               //List needs to be initialized
                               raw_file_string = new List<string> { tmp_str };
-                              return_str = parser.Parse_SFL(tmp_str);
+                              //return_str = parser.Parse_SFL(tmp_str);
+                              parser.Parse_SFL(tmp_str);
                               tmp_str = null;
-                              Console.WriteLine("Parser returned: " + return_str);
+                              //Console.WriteLine("Parser returned: " + return_str);
                          }
                          else
                          {
                               //Else just add the next file string
                               raw_file_string.Add(tmp_str);
-                              return_str = parser.Parse_SFL(tmp_str);
-                              Console.WriteLine("Parser returned: " + return_str);
+                              //return_str = parser.Parse_SFL(tmp_str);
+                              parser.Parse_SFL(tmp_str);
+                              //Console.WriteLine("Parser returned: " + return_str);
                          }                         
                          
                     }
