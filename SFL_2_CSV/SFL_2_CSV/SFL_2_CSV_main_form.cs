@@ -41,8 +41,8 @@ namespace SFL_2_CSV
         /*** Gotta think about how to handle this one, maybe use this in the file handler class ***/
         SFL_Parser parser = new SFL_Parser();
 
-          //This is the FOrm constructor 
-          public SFL_2_CSV_main_form()
+        //This is the FOrm constructor 
+        public SFL_2_CSV_main_form()
         {
             InitializeComponent();
             //Creat memory for the SFL location file handler
@@ -137,7 +137,8 @@ namespace SFL_2_CSV
           {
                Application.Exit();
           }
-
+        
+        //Here we Itterate accross the SFL files in the Directory and send them to be parsed and saved as CSV files
         private void Frm_Btn_Convert_files_Click(object sender, EventArgs e)
           {
                sfl_list = Directory.GetFiles(sfl_loc_fldr_path_str, "*.sfl");
@@ -148,6 +149,7 @@ namespace SFL_2_CSV
                     //string return_str;
                     try
                     {
+                         
                          //the file string will begin with name, then the contents of the file
                          tmp_str = @name + @"," + @File.ReadAllText(name);
 
@@ -156,31 +158,25 @@ namespace SFL_2_CSV
                          {
                               //List needs to be initialized
                               raw_file_string = new List<string> { tmp_str };
-                              //return_str = parser.Parse_SFL(tmp_str);
+                              //Call the parser to csv function on the current SFL file
                               parser.Parse_SFL(tmp_str);
                               tmp_str = null;
-                              //Console.WriteLine("Parser returned: " + return_str);
                          }
                          else
                          {
                               //Else just add the next file string
                               raw_file_string.Add(tmp_str);
-                              //return_str = parser.Parse_SFL(tmp_str);
                               parser.Parse_SFL(tmp_str);
-                              //Console.WriteLine("Parser returned: " + return_str);
                          }                         
                          
                     }
                     catch(Exception ex)
                     {
+                         ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Red);
                          Console.WriteLine("The file could not be read:");
                          Console.WriteLine(ex.Message);
+                         ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.White);
                     }                    
-               }
-
-               foreach(string sfl in raw_file_string )
-               {
-                    //Console.WriteLine(sfl);
                }
           }
      }

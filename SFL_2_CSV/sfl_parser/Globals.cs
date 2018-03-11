@@ -80,5 +80,13 @@ namespace sfl_parser
                { "WI", "Willamette   " },
                { "WR", "W. Hood River" }
           };
+
+          // This method was pulled from teh accepted solution on stack exchange at the following URL
+          //https://stackoverflow.com/questions/1450774/splitting-a-string-into-chunks-of-a-certain-size
+          public static IEnumerable<string> Split(string str, int chunkSize)
+          {
+               return Enumerable.Range(0, str.Length / chunkSize)
+                   .Select(i => str.Substring(i * chunkSize, chunkSize));
+          }
      }
 }
