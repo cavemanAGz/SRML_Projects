@@ -12,21 +12,21 @@ namespace sfl_parser
           ////The following constants are based on the orignal program file SFMOD. 
           ////The header is the firs 50 chars, with informational values
           ////(Change this if the header length changes. Count is charachters)
-          //private static readonly int header_length = 50;
+          //private static readonly int Header_Length = 50;
           ////The data si the information from the instruments ports, the length is static, the number of ports
           ////is not and will be dertermined at run time. (Change this if the data length changes. Count is charachters)
-          //private static readonly int data_length = 42;
+          //private static readonly int Data_Length = 42;
 
           ////This array holds all possible record sizes folowing this formula:
           //// Report_Length = (Header_Lenght + (Data_Lenght * Port_Count))
           //private static readonly int[] Record_Lengths = {
-          //     (header_length + (data_length * 4)),
-          //     (header_length + (data_length * 8)),
-          //     (header_length + (data_length * 16)),
-          //     (header_length + (data_length * 24)),
-          //     (header_length + (data_length * 32)),
-          //     (header_length + (data_length * 48)),
-          //     (header_length + (data_length * 64)) };
+          //     (Header_Length + (Data_Length * 4)),
+          //     (Header_Length + (Data_Length * 8)),
+          //     (Header_Length + (Data_Length * 16)),
+          //     (Header_Length + (Data_Length * 24)),
+          //     (Header_Length + (Data_Length * 32)),
+          //     (Header_Length + (Data_Length * 48)),
+          //     (Header_Length + (Data_Length * 64)) };
 
           ////This is just to do the translation of Record lentght ot port count
           //private int[] Port_Values = { 4, 8, 16, 24, 32, 48, 64};
@@ -77,36 +77,13 @@ namespace sfl_parser
                //Now we know how many ports the device has, how ong each recode is and the record count
                //SFL_Record tst_rec = new SFL_Record(SFL_to_parse, Record_Length, Port_Count);               
                Record_Strings = Make_List_Of_Records();
-               
+
+               int rec_counter = 1;
                foreach(String rec in Record_Strings)
                {
-                    try
-                    {
-                         Records.Add(new SFL_Record(rec, Record_Length, Port_Count));
-                    }
-                    catch (Exception e)
-                    {
-                         Console.WriteLine("Error in creating a Record from the list of record strigns. Ln 89 SFL_Parser.cs");
-                         Console.WriteLine("Error {0}", e);
-                    }
-                    
+                    Records.Add(new SFL_Record(rec, SFL_file_name, SFL_file_path, Record_Length, Port_Count, rec_counter, Record_Strings.Count()));
+                    rec_counter++;
                }
-               //Now I need to create a list of records
-
-               /*
-               Cur_File_Records. new SFL_Record(SFL_to_parse, Record_Length, Port_Count)
-               int i = 1;
-               foreach (String Rec in Record_Strings)
-               {
-                    //This is for coloring the console text. Turn off console in The project properties,
-                    // by switching to a forms app from console app
-                    ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Blue);
-                    Console.WriteLine("Record " + i + ": " + Rec);
-                    i++;
-               }
-               ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.White);
-               i = 1;
-               */
           }
 
           /****************************************************************************************
@@ -131,7 +108,7 @@ namespace sfl_parser
                delta = end - start;
                // Set the name of this sensor reading
                SFL_file_name = sfl_file_string_in.Substring(start + 1, delta - 1);
-               Console.WriteLine("The file name is: " + SFL_file_name);
+               //Console.WriteLine("The file name is: " + SFL_file_name);
                //Set the inital string with all readings from the sensor
                // the substring starts a the character after the comma I added
                // The delta is 
@@ -141,10 +118,10 @@ namespace sfl_parser
                delta = 0;
 
                //Console.WriteLine("The File string is: " + SFL_to_parse);
-               Console.WriteLine("The file length is: " + SFL_to_parse.Length.ToString());
+               //Console.WriteLine("The file length is: " + SFL_to_parse.Length.ToString());
 
                SFL_file_path = sfl_file_string_in.Substring(0, sfl_file_string_in.LastIndexOf("\\")+1);
-               Console.WriteLine("The file path is: " + SFL_file_path);
+               //Console.WriteLine("The file path is: " + SFL_file_path);
           }
 
           /****************************************************************************************
@@ -172,24 +149,24 @@ namespace sfl_parser
                     Mod_Result = File_Length % Globals.Record_Lengths[i];
                     if (Mod_Result == 0)
                     {
-                         ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Cyan);
+                         //ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Cyan);
                          Port_Count = Globals.Port_Values[i];
                          Record_Length = Globals.Record_Lengths[i];
-                         ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Cyan);
-                         Console.WriteLine("The port Count is: " + Port_Count.ToString());
-                         ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Blue);
-                         Console.WriteLine("The Record length is: " + Record_Length.ToString());
-                         ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.White);
+                         //ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Cyan);
+                         //Console.WriteLine("The port Count is: " + Port_Count.ToString());
+                         //ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Blue);
+                         //Console.WriteLine("The Record length is: " + Record_Length.ToString());
+                         //ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.White);
                          break;
                     }
                     else if(Mod_Result == 2)
                     {
                          Port_Count = Globals.Port_Values[i];
                          Record_Length = Globals.Record_Lengths[i];
-                         ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Cyan);
-                         Console.WriteLine("The port Count is: " + Port_Count.ToString());
-                         ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Blue);
-                         Console.WriteLine("The Record length is: " + Record_Length.ToString());
+                         //ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Cyan);
+                         //Console.WriteLine("The port Count is: " + Port_Count.ToString());
+                         //ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Blue);
+                         //Console.WriteLine("The Record length is: " + Record_Length.ToString());
                          ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Red);
                          Console.WriteLine("Error! Slight Correction made, data might be bad!");
                          ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.White);
@@ -201,7 +178,7 @@ namespace sfl_parser
                     if(i == Globals.Record_Lengths.Length - 1)
                     {
                          Port_Count = 16;
-                         Record_Length = (Globals.header_length + (Globals.data_length * Port_Count));
+                         Record_Length = (Globals.Header_Length + (Globals.Data_Length * Port_Count));
                          ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Red);
                          Console.WriteLine("The port Count is: " + Port_Count.ToString());
                          Console.WriteLine("The Record length is: " + Record_Length.ToString());
@@ -226,12 +203,20 @@ namespace sfl_parser
           ****************************************************************************************/
           private List<String> Make_List_Of_Records()
           {
+               try
+               {
+                    IEnumerable<String> test = Globals.Split(SFL_to_parse, Record_Length);
 
-               IEnumerable<String> test = Globals.Split(SFL_to_parse, Record_Length);
+                    List<String> rec_list = new List<string>(test);
 
-               List<String> rec_list = new List<string>(test);
-
-               return rec_list;
+                    return rec_list;
+               }
+               catch (Exception e)
+               {
+                    Console.WriteLine("Error msaking a list of records. SFL_Paeser");
+                    Console.WriteLine("Error {0}", e);
+                    return null;
+               }
           }
      }
 }

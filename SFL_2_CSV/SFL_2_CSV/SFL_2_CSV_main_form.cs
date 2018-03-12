@@ -142,38 +142,24 @@ namespace SFL_2_CSV
         private void Frm_Btn_Convert_files_Click(object sender, EventArgs e)
           {
                sfl_list = Directory.GetFiles(sfl_loc_fldr_path_str, "*.sfl");
-               foreach(string name in sfl_list)
+               raw_file_string = new List<string>();
+
+               foreach (string name in sfl_list)
                {
-                    //Console.WriteLine("SFL File Name: " + name);
                     string tmp_str;
                     //string return_str;
                     try
-                    {
-                         
+                    {                         
                          //the file string will begin with name, then the contents of the file
                          tmp_str = @name + @"," + @File.ReadAllText(name);
-
-                         //Check if the list is initialized
-                         if (raw_file_string == null)
-                         {
-                              //List needs to be initialized
-                              raw_file_string = new List<string> { tmp_str };
-                              //Call the parser to csv function on the current SFL file
-                              parser.Parse_SFL(tmp_str);
-                              tmp_str = null;
-                         }
-                         else
-                         {
-                              //Else just add the next file string
-                              raw_file_string.Add(tmp_str);
-                              parser.Parse_SFL(tmp_str);
-                         }                         
+                         raw_file_string.Add(tmp_str);
+                         parser.Parse_SFL(tmp_str);                         
                          
                     }
                     catch(Exception ex)
                     {
                          ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.Red);
-                         Console.WriteLine("The file could not be read:");
+                         Console.WriteLine("The file could not be read: {0}", name);
                          Console.WriteLine(ex.Message);
                          ConsoleColour.SetForeGroundColour(ConsoleColour.ForeGroundColour.White);
                     }                    
