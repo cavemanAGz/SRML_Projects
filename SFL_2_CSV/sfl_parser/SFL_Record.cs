@@ -59,7 +59,7 @@ namespace sfl_parser
                     Header_String = input_record.Substring(Globals.Header_Start_Index, Globals.Header_Length);
                     //Data_String will contain the data for ALL ports on teh device and will be parsed seperatly
                     Data_String = input_record.Substring((Globals.Data_Start_Index), (rec_length - (Globals.Header_Length)));
-                    Mod_Date = "Modified: " + now.ToString("dd-MM-yyyy     HH:mm");
+                    Mod_Date = now.ToString("dd-MM-yyyy     HH:mm");
                     SFL_File_Name = file_name_in;
                     SFL_File_Path = file_path_in;
                     Total_Records_Count = all_rec_count;
@@ -69,9 +69,9 @@ namespace sfl_parser
                     //Try to fill in all the header data
                     Parse_Header();
                     //Now fill in the port data for each port
-                    Record_Data = Parse_Data(port_count);
+                    Record_Data = Parse_Data();
 
-                    //Print_Curet_Record(this);
+                    Print_Curet_Record(this);
 
                }
                catch (Exception e)
@@ -99,9 +99,12 @@ namespace sfl_parser
                     Month = Header_String.Substring(Globals.Month_Start_Index, Globals.Month_Length);
                     //Do some logic hear for pre y2k stuffs.
                     Year = Header_String.Substring(Globals.Year_Start_Index, Globals.Year_Length);
+                    //DD/MM/YY
                     Date_Str = Day + @"/" + Month + @"/" + Year;
+                    //HH:MM
                     Time_Str = Hour + ":" + Minute;
                     Date_Time_Str = Date_Str + @"       " + Time_Str;
+                    // YYYY - MM - DD --HH:MM
                     CSV_Date_Time_Str = Year+@"/"+Month+ @"/" +Day + @" --" + Hour + @":" + Minute;
                     Site = Header_String.Substring(Globals.Site_Start_Index, Globals.Site_Length);
                     String tmp_name;
@@ -121,14 +124,14 @@ namespace sfl_parser
           }
 
           /****************************************************************************************
-          * Function: 
-          * Purpose: 
-          * Input: 
+          * Function: Parse_Data
+          * Purpose: This function uses the 
+          * Input: None
           * Output: 
           * Var State Changes: 
           * Dependancies: 
           ****************************************************************************************/
-          private List<SFL_Record_Data> Parse_Data(int port_count)
+          private List<SFL_Record_Data> Parse_Data()
           {
                //Break the data files up into their respective data sets
                IEnumerable<String> cur_data = Globals.Split(Data_String, Globals.Data_Length);
@@ -156,8 +159,7 @@ namespace sfl_parser
                          if (cur_rec_data.Data_Code == "0000" &&
                                cur_rec_data.Zero_Offset == Globals.Zero_Offset_Empty_Str)
                          {
-                              //active_port_counter++;
-                              //out_data_list.Add(cur_rec_data);
+                              //Got the Empty List
                               break;
                          }
                          else
@@ -187,21 +189,24 @@ namespace sfl_parser
                Console.WriteLine("{0}{1}",
                     cur_rec.SFL_File_Path,
                     cur_rec.SFL_File_Name);
-               Console.WriteLine("Record {0} of {1}\tModified: {2}",
+               Console.WriteLine("Record {0} of {1}\t\tModified: {2}",
                     cur_rec.Cur_Record_Count,
                     cur_rec.Total_Records_Count,
                     cur_rec.Mod_Date);
                Console.WriteLine(boarder);
                //Line 2
-               Console.WriteLine("Site Code: {0}\t\tSite Name: {1}\t\tDate: {2}" +
-                    " at {3}\t\tLogger " + @"# " + "{4}",
+               Console.WriteLine("Site Code: {0}\t\tSite Name: {1}\tDate: {2} at {3}",
                     cur_rec.Site,
                     cur_rec.Site_Name_Str,
                     cur_rec.Date_Str,
-                    cur_rec.Time_Str,
-                    cur_rec.Logger_Number
+                    cur_rec.Time_Str
                     );
                //Line 3
+               Console.WriteLine("Logger " + @"# " + "{0}\t\tActive Ports: {1} of {2}",
+                    cur_rec.Logger_Number,
+                    cur_rec.Active_Port_Count,
+                    cur_rec.Ports_Avail);
+               //line 4
                Console.WriteLine("Latitude: {0}\t\tLongitude: {1}\t\tAltitude: {2}",
                     cur_rec.Latitude,
                     cur_rec.Longitude,
