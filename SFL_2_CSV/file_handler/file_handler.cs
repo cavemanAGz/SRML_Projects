@@ -30,7 +30,7 @@ namespace file_handler
             {
                 //Set the foldername string
                 Folder_Name = fbd_1.SelectedPath;
-                System.Diagnostics.Debug.WriteLine("The folder path is: " + Folder_Name);
+               // System.Diagnostics.Debug.WriteLine("The folder path is: " + Folder_Name);
 
             }
             else if(result == DialogResult.Cancel)
