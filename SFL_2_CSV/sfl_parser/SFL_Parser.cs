@@ -9,27 +9,6 @@ namespace sfl_parser
 {
      public class SFL_Parser
      {
-          ////The following constants are based on the orignal program file SFMOD. 
-          ////The header is the firs 50 chars, with informational values
-          ////(Change this if the header length changes. Count is charachters)
-          //private static readonly int Header_Length = 50;
-          ////The data si the information from the instruments ports, the length is static, the number of ports
-          ////is not and will be dertermined at run time. (Change this if the data length changes. Count is charachters)
-          //private static readonly int Data_Length = 42;
-
-          ////This array holds all possible record sizes folowing this formula:
-          //// Report_Length = (Header_Lenght + (Data_Lenght * Port_Count))
-          //private static readonly int[] Record_Lengths = {
-          //     (Header_Length + (Data_Length * 4)),
-          //     (Header_Length + (Data_Length * 8)),
-          //     (Header_Length + (Data_Length * 16)),
-          //     (Header_Length + (Data_Length * 24)),
-          //     (Header_Length + (Data_Length * 32)),
-          //     (Header_Length + (Data_Length * 48)),
-          //     (Header_Length + (Data_Length * 64)) };
-
-          ////This is just to do the translation of Record lentght ot port count
-          //private int[] Port_Values = { 4, 8, 16, 24, 32, 48, 64};
           ///************************Start File props**********************************************************/
 
           //complete copy of the sfl file without the filename and path attached
@@ -69,6 +48,8 @@ namespace sfl_parser
           ****************************************************************************************/
           public void Parse_SFL(string sfl_file_string)
           {
+               //Initialize the Record... DUH!
+               Records = new List<SFL_Record>();
                //Call method to set file information. 
                Get_File_Info(sfl_file_string);
 
