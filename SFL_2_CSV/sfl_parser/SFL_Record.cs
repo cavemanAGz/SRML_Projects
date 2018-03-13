@@ -71,7 +71,7 @@ namespace sfl_parser
                     //Now fill in the port data for each port
                     Record_Data = Parse_Data(port_count);
 
-                    Print_Curet_Record(this);
+                    //Print_Curet_Record(this);
 
                }
                catch (Exception e)

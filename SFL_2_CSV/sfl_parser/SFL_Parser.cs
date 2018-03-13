@@ -81,7 +81,8 @@ namespace sfl_parser
                int rec_counter = 1;
                foreach(String rec in Record_Strings)
                {
-                    Records.Add(new SFL_Record(rec, SFL_file_name, SFL_file_path, Record_Length, Port_Count, rec_counter, Record_Strings.Count()));
+                    SFL_Record tmp_record = new SFL_Record(rec, SFL_file_name, SFL_file_path, Record_Length, Port_Count, rec_counter, Record_Strings.Count());
+                    Records.Add(tmp_record);
                     rec_counter++;
                }
           }
