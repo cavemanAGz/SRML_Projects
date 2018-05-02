@@ -25,6 +25,8 @@ namespace sfl_parser
           private String Day { get; set; }                                 //Initialized in Parse_HEader()
           private String Month { get; set; }                               //Initialized in Parse_HEader()
           private String Year { get; set; }                                //Initialized in Parse_HEader()
+          private int Int_Year_2 { get; set; }                             //Initialized in Parse_HEader()
+          private int Int_Year_4 { get; set; }                             //Initialized in Parse_HEader()
 
           private String Date_Str { get; set; }                            //Initialized in Parse_Header()
           private String Time_Str { get; set; }                            //Initialized in Parse_Header()
@@ -71,7 +73,7 @@ namespace sfl_parser
                     //Now fill in the port data for each port
                     Record_Data = Parse_Data();
 
-                    Print_Curet_Record(this);
+                    Print_Current_Record(this);
 
                }
                catch (Exception e)
@@ -99,6 +101,8 @@ namespace sfl_parser
                     Month = Header_String.Substring(Globals.Month_Start_Index, Globals.Month_Length);
                     //Do some logic hear for pre y2k stuffs.
                     Year = Header_String.Substring(Globals.Year_Start_Index, Globals.Year_Length);
+                    Int_Year_2 = int.Parse(Year);
+                    Int_Year_4 = Gross_2_To_4_Digit_Year_Calculation(Int_Year_2);
                     //DD/MM/YY
                     Date_Str = Day + @"/" + Month + @"/" + Year;
                     //HH:MM
@@ -180,7 +184,7 @@ namespace sfl_parser
                return out_data_list;
           }
 
-          public void Print_Curet_Record(SFL_Record cur_rec)
+          public void Print_Current_Record(SFL_Record cur_rec)
           {
                //Lets just print all the Records properties to the console 
                String boarder = new System.String('=', 80);
@@ -252,5 +256,28 @@ namespace sfl_parser
                }
           }
 
+          public int Gross_2_To_4_Digit_Year_Calculation(int in_year)
+          {
+
+               int four_digit_year = 0;
+
+               // If Iyr<75 then Iyr:= Iyr + 2000 Else Iyr:= Iyr + 1900;
+
+               if ((in_year < 75) && (DateTime.Today.Year  < 2075))
+               {
+                    four_digit_year = 2000 + in_year;
+               }
+               else if ((in_year > 75) && (DateTime.Today.Year < 2075))
+               {
+                    four_digit_year = 1900 + in_year;
+               }
+               else
+               {
+                    four_digit_year = 2000 + in_year;
+               }
+
+               return four_digit_year;
+               
+          }
      }
 }

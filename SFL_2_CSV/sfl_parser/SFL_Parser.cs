@@ -55,7 +55,7 @@ namespace sfl_parser
 
                Determine_Record_Prams();
 
-               //Now we know how many ports the device has, how ong each recode is and the record count
+               //Now we know how many ports the device has, how long each recode is and the record count
                //SFL_Record tst_rec = new SFL_Record(SFL_to_parse, Record_Length, Port_Count);               
                Record_Strings = Make_List_Of_Records();
 
