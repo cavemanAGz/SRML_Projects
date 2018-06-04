@@ -9,38 +9,38 @@ namespace sfl_parser
      public class SFL_Record
      {
           // This is a class that holds one record
-          private String Header_String { get; set; }                       //Initialized in Constructor Body
-          private String Data_String { get; set; }                         //Initialized in Constructor Body
-          private String Mod_Date { get; set; }                            //Initialized in Constructor Body
+          public String Header_String { get; private set; }                       //Initialized in Constructor Body
+          public String Data_String { get; private set; }                         //Initialized in Constructor Body
+          public String Mod_Date { get; private set; }                            //Initialized in Constructor Body
 
           //These get passed in as arguments to a SFL_Record constructor
-          private String SFL_File_Name { get; set; }                       //Initialized in Constructor Body
-          private String SFL_File_Path { get; set; }                       //Initialized in Constructor Body
-          private int Cur_Record_Count { get; set; }                       //Initialized in Constructor Body
-          private int Total_Records_Count { get; set; }                    //Initialized in Constructor Body
-          private int Ports_Avail { get; set; }                            //Initialized in Constructor Body
+          public String SFL_File_Name { get; private set; }                       //Initialized in Constructor Body
+          public String SFL_File_Path { get; private set; }                       //Initialized in Constructor Body
+          public int Cur_Record_Count { get; private set; }                       //Initialized in Constructor Body
+          public int Total_Records_Count { get; private set; }                    //Initialized in Constructor Body
+          public int Ports_Avail { get; private set; }                            //Initialized in Constructor Body
 
-          private String Minute { get; set; }                              //Initialized in Parse_HEader()
-          private String Hour { get; set; }                                //Initialized in Parse_HEader()
-          private String Day { get; set; }                                 //Initialized in Parse_HEader()
-          private String Month { get; set; }                               //Initialized in Parse_HEader()
-          private String Year { get; set; }                                //Initialized in Parse_HEader()
+          public String Minute { get; private set; }                              //Initialized in Parse_HEader()
+          public String Hour { get; private set; }                                //Initialized in Parse_HEader()
+          public String Day { get; private set; }                                 //Initialized in Parse_HEader()
+          public String Month { get; private set; }                               //Initialized in Parse_HEader()
+          public String Year { get; private set; }                                //Initialized in Parse_HEader()
 
-          private String Date_Str { get; set; }                            //Initialized in Parse_Header()
-          private String Time_Str { get; set; }                            //Initialized in Parse_Header()
-          private String Date_Time_Str { get; set; }                       //Initialized in Parse_Header()
-          private String CSV_Date_Time_Str { get; set; }                   //Initialized in Parse_Header()
+          public String Date_Str { get; private set; }                            //Initialized in Parse_Header()
+          public String Time_Str { get; private set; }                            //Initialized in Parse_Header()
+          public String Date_Time_Str { get; private set; }                       //Initialized in Parse_Header()
+          public String CSV_Date_Time_Str { get; private set; }                   //Initialized in Parse_Header()
 
-          private String Site { get; set; }                                //Initialized in Parse_Header()
-          private String Site_Name_Str { get; set; }                       //Initialized in Parse_Header()
+          public String Site { get; private set; }                                //Initialized in Parse_Header()
+          public String Site_Name_Str { get; private set; }                       //Initialized in Parse_Header()
 
-          private String Logger_Number { get; set; }                       //Initialized in Parse_Header()
-          private String Altitude { get; set; }                            //Initialized in Parse_Header()
-          private String Longitude { get; set; }                           //Initialized in Parse_Header()
-          private String Latitude { get; set; }                            //Initialized in Parse_Header()
+          public String Logger_Number { get; private set; }                       //Initialized in Parse_Header()
+          public String Altitude { get; private set; }                            //Initialized in Parse_Header()
+          public String Longitude { get; private set; }                           //Initialized in Parse_Header()
+          public String Latitude { get; private set; }                            //Initialized in Parse_Header()
 
-          private List<SFL_Record_Data> Record_Data { get; set; }          //Initialized in Parse_Data()
-          private int Active_Port_Count { get; set; }                      //Initialized in Parse_Data()
+          public List<SFL_Record_Data> Record_Data { get; private set; }          //Initialized in Parse_Data()
+          public int Active_Port_Count { get; private set; }                      //Initialized in Parse_Data()
 
           /****************************************************************************************
           * Function: 
@@ -250,7 +250,7 @@ namespace sfl_parser
                     }
                     
                }
-          }
+          }       
 
      }
 }

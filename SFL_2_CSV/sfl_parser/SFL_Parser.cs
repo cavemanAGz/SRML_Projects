@@ -66,6 +66,10 @@ namespace sfl_parser
                     Records.Add(tmp_record);
                     rec_counter++;
                }
+
+               //We should now have acomplete record with whcih to create a csv
+               Console.WriteLine("SFL File {0} Parsed", Records[0].SFL_File_Name);
+               //This is where we should creat the CSV FILE
           }
 
           /****************************************************************************************
